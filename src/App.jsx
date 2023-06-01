@@ -16,7 +16,7 @@ export function App() {
               author="Guilherme Salkovski" 
               content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem esse enim earum soluta similique commodi maiores inventore autem? Ducimus voluptatibus placeat aliquam eum quaerat at voluptatum, fuga ut ipsa accusamus."
             />
-          
+            
             <Post
               author="Thiago Felipe"
               content="Outro post bem divertido"
