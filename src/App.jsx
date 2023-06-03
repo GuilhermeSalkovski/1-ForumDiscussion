@@ -5,6 +5,49 @@ import { Sidebar } from "./components/Sidebar";
 import styles from './components/App.module.css';
 import './global.css';
 
+const posts = [
+  {
+    id: 1,
+    author: {
+      avatarUrl: 'https://github.com/GuilhermeSalkovski.png',
+      name: 'Guilherme Salkovski',
+      role: 'Software Developer'
+    },
+    content: [
+      { type: 'paragraph', content: 'Fala galeraa 👋' },
+      { type: 'paragraph', content: `Acabei de subir mais um projeto no meu portifa. 
+                                      É um projeto que fiz no NLW Return,
+                                      evento da Rocketseat. O nome do projeto é DoctorCare 🚀`}, 
+      { type: 'link', content: 'guilherme.aloalo/doctorcare'},
+      // '#novoprojeto ',
+      // '#nlw',
+      // '#rocketseat '
+    ],
+    publishedAt: new Date('2023-05-30 20:00:00')
+  },
+  {
+    id: 2,
+    author: {
+      avatarUrl: 'https://github.com/maykbrito.png',
+      name: 'Mayk Brito',
+      role: 'Educator @ Rocketseat'
+    },
+    content: [
+      { type: 'paragraph', content: 'Fala galeraa 👋' },
+      { type: 'paragraph', content: `Acabei de subir mais um projeto no meu portifa. 
+                                      É um projeto que fiz no NLW Return,
+                                      evento da Rocketseat. O nome do projeto é DoctorCare 🚀`}, 
+      { type: 'link', content: 'guilherme.aloalo/doctorcare'},
+      // '#novoprojeto ',
+      // '#nlw',
+      // '#rocketseat '
+    ],
+    publishedAt: new Date('2023-06-03 10:00:00')
+  }
+];
+
+
+// Iteraçao!!!
 export function App() {
   return (
     <div>
@@ -12,15 +55,15 @@ export function App() {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-            <Post 
-              author="Guilherme Salkovski" 
-              content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem esse enim earum soluta similique commodi maiores inventore autem? Ducimus voluptatibus placeat aliquam eum quaerat at voluptatum, fuga ut ipsa accusamus."
-            />
-            
-            <Post
-              author="Thiago Felipe"
-              content="Outro post bem divertido"
-            />
+          {posts.map(post => {
+            return (
+              < Post 
+                author={post.author} 
+                content={post.content}
+                publishedAt={post.publishedAt}
+              />
+            )
+          })}
         </main>
       </div>
     </div>
