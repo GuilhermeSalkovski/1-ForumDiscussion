@@ -1,20 +1,45 @@
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import { useState } from 'react';
 
-import { Avatar } from './Avatar'
-import { Comment } from './Comment'
+import { Avatar } from './Avatar';
+import { Comment } from './Comment';
 
-import styles from './Post.module.css'
+import styles from './Post.module.css';
+
+
+// const comments = [
+//     1,
+//     2
+// ];
+
+// estado = variáveis que eu quero que o componente monitore
 
 export function Post({ author, publishedAt, content }) {
+    const [comments, setComments] = useState([
+        1,
+        2
+    ])
+
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
         locale: ptBR
-    });
+    })
 
     const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
         locale: ptBR,
         addSuffix: true
     })
+
+    // Start functions names with 'handle' if it is supposed to manage an user action
+    function handleCreateNewComment() {
+        event.preventDefault()
+
+        // Não passa somente o novo valor a ser incluído. Passa o novo estado/conteúdo de todo o array comments
+        // => Imutabilidade
+        setComments([...comments, comments.length+1])
+        console.log(comments);
+    }
+
 
     return (
         <article className={styles.post}>
@@ -41,17 +66,8 @@ export function Post({ author, publishedAt, content }) {
                     }
                 })}
 
-                {/* <p>Fala galeraa 👋</p> 
-                <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, 
-                    evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-                <p><a href="#">guilherme.aloalo/doctorcare</a></p>
-                <p>
-                    <a href="#">#novoprojeto</a> {' '}
-                    <a href="#">#nlw</a> {' '}
-                    <a href="#">#rocketseat</a> {' '}
-                </p>   */}
             </div>
-            <form className={styles.commentForm}>
+            <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
                 <strong>Deixe seu feedback</strong>
                 <textarea placeholder="Deixe um comentário"></textarea>
 
@@ -61,9 +77,9 @@ export function Post({ author, publishedAt, content }) {
             </form>
 
             <div className={styles.commentList}>
-                <Comment />
-                <Comment />
-                <Comment />
+                {comments.map( comment => {
+                    return < Comment />
+                })}
             </div>
         </article>
     )
