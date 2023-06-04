@@ -7,19 +7,14 @@ import { Comment } from './Comment';
 
 import styles from './Post.module.css';
 
-
-// const comments = [
-//     1,
-//     2
-// ];
-
 // estado = variáveis que eu quero que o componente monitore
 
 export function Post({ author, publishedAt, content }) {
     const [comments, setComments] = useState([
-        1,
-        2
+        'Post da hora, hein?!'
     ])
+
+    const [newCommentText, setNewCommentText] = useState('')
 
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
         locale: ptBR
@@ -34,10 +29,18 @@ export function Post({ author, publishedAt, content }) {
     function handleCreateNewComment() {
         event.preventDefault()
 
+        // const newCommentText = event.target.comment.value
+
         // Não passa somente o novo valor a ser incluído. Passa o novo estado/conteúdo de todo o array comments
         // => Imutabilidade
-        setComments([...comments, comments.length+1])
-        console.log(comments);
+        setComments([...comments, newCommentText])
+
+        // event.target.comment.value = ''
+        setNewCommentText('');
+    }
+
+    function handleNewCommentChange() {
+        setNewCommentText(event.target.value);
     }
 
 
@@ -69,7 +72,12 @@ export function Post({ author, publishedAt, content }) {
             </div>
             <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
                 <strong>Deixe seu feedback</strong>
-                <textarea placeholder="Deixe um comentário"></textarea>
+                <textarea 
+                    name="comment"
+                    placeholder="Deixe um comentário"
+                    value={newCommentText}
+                    onChange={handleNewCommentChange}>
+                </textarea>
 
                 <footer>
                     <button type="submit">Publicar</button>
@@ -78,7 +86,7 @@ export function Post({ author, publishedAt, content }) {
 
             <div className={styles.commentList}>
                 {comments.map( comment => {
-                    return < Comment />
+                    return < Comment content={comment} />
                 })}
             </div>
         </article>
